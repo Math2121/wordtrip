@@ -1,9 +1,19 @@
-import { Box, Container, Flex, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Link, LinkOverlay, Text } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination,Autoplay } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import SliderName from "../components/SliderName";
+SwiperCore.use([Navigation, Pagination, Autoplay]);
+interface Continent {
+  id: number;
+  name: string;
+  description: string;
+  carrouselImage: string;
+}
 
-SwiperCore.use([Navigation, Pagination,Autoplay]);
-function Slider() {
+interface SliderProps {
+  sliders: Continent[];
+}
+function Slider({ sliders }: SliderProps) {
   return (
     <Container maxW="container.xl" mt={24} mb={8}>
       <Text fontSize="2xl" color="black.300" align="center" mb={8}>
@@ -20,42 +30,26 @@ function Slider() {
         loop
         autoplay={{ delay: 3000 }}
       >
-        <SwiperSlide>
-          <Box
-            bgImage="url('/images/continent.png')"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            bgSize="cover"
-            h="xs"
-          >
-            <Flex align="center" direction="column" justify="center" h="xs">
-              <Text fontSize="2xl" color="white.300" align="center">
-                <b>Europa</b>
-              </Text>
-              <Text fontSize="md" color="#DADADA" align="center">
-                <b>O continente mais antigo.</b>
-              </Text>
-            </Flex>
-          </Box>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Box
-            bgImage="url('/images/continent.png')"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            bgSize="cover"
-            h="xs"
-          >
-            <Flex align="center" direction="column" justify="center" h="xs">
-              <Text fontSize="2xl" color="white.300" align="center">
-                <b>Europa</b>
-              </Text>
-              <Text fontSize="md" color="#DADADA" align="center">
-                <b>O continente mais antigo.</b>
-              </Text>
-            </Flex>
-          </Box>
-        </SwiperSlide>
+        {sliders &&
+          sliders.map(item => (
+            <SwiperSlide key={item.id}>
+              <LinkOverlay href={`/country/${item.id}`} >
+                <Box
+                  bgImage={`url('${item.carrouselImage}')`}
+                  bgPosition="center"
+                  bgRepeat="no-repeat"
+                  bgSize="cover"
+              
+                  h="xs"
+                >
+                  <SliderName
+                    nameCountry={item.name}
+                    description={item.description}
+                  />
+                </Box>
+              </LinkOverlay>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </Container>
   );
