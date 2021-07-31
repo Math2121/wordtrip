@@ -8,28 +8,54 @@ import {
   Tooltip,
   Wrap,
 } from "@chakra-ui/react";
+import { GetServerSideProps, GetStaticProps } from "next";
 import { FiAlertCircle } from "react-icons/fi";
 import BannerCountry from "../../components/Country/BannerCountry";
 import Citys from "../../components/Country/Citys";
 import Header from "../../components/Header";
+import api from "../../services/api";
+interface CountriesData {
+  id: number;
+  name: string;
+  flag: string;
+  capital: string;
+  image: string;
+}
+interface ContinentProps {
+  id: number;
+  name: string;
+  description: string;
+  text: string;
+  numberOfCountries: number;
+  numberOfLanguages: number;
+  numberOfCity: number;
+  carrouselImage: string;
+  bannerImage: string;
+  countries: CountriesData[];
+}
+interface SliderProps {
+  continent: ContinentProps[];
+}
 
-function Slug() {
+function Slug({ continent }: SliderProps) {
+
   return (
     <>
       <Header isHasBack={true} />
-      <BannerCountry image="england" name="Europa" />
+      <BannerCountry bannerImage={continent[0].bannerImage} name={continent[0].name} />
       <Container maxW="container.xl" mt={16}>
         <SimpleGrid minChildWidth="320px" columns={2}>
           <Box>
             <Text fontSize="md" color="black.300" columns={2} spacing={16}>
-              A Europa é, por convenção, um dos seis continentes do mundo.
-              Compreendendo a península ocidental da Eurásia, a Europa
-              geralmente divide-se da Ásia a leste pela divisória de águas dos
-              montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a
-              sudeste
+            {continent[0].text}
             </Text>
           </Box>
-          <Flex align="center" justify="space-around"  wrap="wrap"  mt={['8','0']}>
+          <Flex
+            align="center"
+            justify="space-around"
+            wrap="wrap"
+            mt={["8", "0"]}
+          >
             <Box>
               <Text
                 fontSize="2xl"
@@ -37,7 +63,7 @@ function Slug() {
                 align="center"
                 fontWeight="bold"
               >
-                50
+              {continent[0].numberOfCountries}
               </Text>
               <Text fontSize="md" color="black.300" align="center">
                 países
@@ -50,7 +76,7 @@ function Slug() {
                 align="center"
                 fontWeight="bold"
               >
-                60
+                {continent[0].numberOfLanguages}
               </Text>
               <Text fontSize="md" color="black.300" align="center">
                 línguas
@@ -63,12 +89,16 @@ function Slug() {
                 align="center"
                 fontWeight="bold"
               >
-                27
+               {continent[0].numberOfCity}
               </Text>
               <Text fontSize="md" color="black.300" align="center">
                 <Flex align="center">
                   cidades +100
-                  <Tooltip label="+200 cidades" fontSize="md" placement="bottom">
+                  <Tooltip
+                    label="+200 cidades"
+                    fontSize="md"
+                    placement="bottom"
+                  >
                     <Wrap ml={1}>
                       <Icon
                         as={FiAlertCircle}
@@ -83,10 +113,22 @@ function Slug() {
           </Flex>
         </SimpleGrid>
 
-        <Citys/>
+        <Citys city={continent[0].countries}/>
       </Container>
     </>
   );
 }
 
 export default Slug;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.query;
+  const response = await api.get(`/continent/${slug}`);
+  const continent = response.data;
+
+  return {
+    props: {
+      continent,
+    },
+  };
+};

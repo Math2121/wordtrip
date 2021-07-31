@@ -1,15 +1,16 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 
 interface BannerCountryProps {
-  image: string;
+  bannerImage: string;
   name: string;
 }
 
-function BannerCountry({image,name}:BannerCountryProps) {
+function BannerCountry({bannerImage,name}:BannerCountryProps) {
+
   return (
     <>
       <Box
-        bg="url('/images/england.png')"
+        bg={`url(${bannerImage})`}
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"
@@ -18,7 +19,7 @@ function BannerCountry({image,name}:BannerCountryProps) {
         <Container maxW="container.xl">
           <Flex align="flex-end" h="xl">
             <Text fontSize="2xl" color="white.400" pb={16}>
-              Europa
+              {name}
             </Text>
           </Flex>
         </Container>

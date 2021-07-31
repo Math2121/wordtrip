@@ -123,14 +123,14 @@
           {
             "id": 1,
             "name": "EUA",
-            "flag": "https://www.flaticon.com/svg/vstatic/svg/197/197484.svg?token=exp=1617572885~hmac=d4baa61df786d96af6e098f087ffb554",
+            "flag": "https://image.flaticon.com/icons/png/512/1867/1867882.png",
             "capital": "Washington, D.C",
             "image": "https://images.unsplash.com/photo-1501466044931-62695aada8e9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=678&q=80"
           },
           {
             "id": 2,
             "name": "Canadá",
-            "flag": "https://www.flaticon.com/svg/vstatic/svg/197/197430.svg?token=exp=1617572971~hmac=80be3adb4949fd6e4acdfaa8db4fd558",
+            "flag": "https://img-premium.flaticon.com/png/512/2046/premium/2046051.png?token=exp=1627738107~hmac=063f172a796f0823f7e207ab18247d6f",
             "capital": "Ottawa",
             "image": "https://images.unsplash.com/photo-1569681157442-5eabf7fe850e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=752&q=80"
           }
